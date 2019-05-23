@@ -1,6 +1,8 @@
 package Mastermind;
 
-import java.util.Random;
+
+import static Mastermind.Parametres.inputAlmost;
+import static Mastermind.Parametres.inputRight;
 
 
 /** Classe contenant les fonctions relatives à l'affichage du Mastermind
@@ -9,36 +11,32 @@ import java.util.Random;
 public class Affichage
 {
     /** Affichage console du plateau de Mastermind
-     * @param NOMBRE_LIGNES nombre de tours dans la partie
-     * @param NOMBRE_INPUTS nombre d'inputs dans un tour
+     * @param code le code secret
      * @param inputs Double Tableau contenant tous les inputs
      */
-    public static void consoleAfficher(int NOMBRE_LIGNES, int NOMBRE_INPUTS, char[][] inputs)
+    public static void consoleAfficher(char[] code, char[][] inputs)
     {
         System.out.println( "\n\n");
 
-        Random r = new Random();
+        for( int index = 0; index <inputs.length ; index++ )
+            consoleAfficherLigne(code, inputs[index]);
 
-        for( int index = 0; index <NOMBRE_LIGNES; index++ )
-        {
-            consoleAfficherLigne(3, 3, inputs[index]);
-        }
 
         System.out.println( "\n\n");
     }
 
 
     /** Affichage console d'une ligne du plateau de Mastermind
-     * @param right nombre d'inputs corrects et bien placés
-     * @param almost nombre d'inputs corrects mais mal placés
+     * @param code le code secret
      * @param inputs les différents inputs
      *
      */
-    private static void consoleAfficherLigne(int right, int almost, char[] inputs )
+    private static void consoleAfficherLigne(char[] code , char[] inputs )
     {
-        System.out.print("\nRight inputs : " + right + "   -   Almost inputs : " + almost + "     |     ");
+        System.out.print("\nRight inputs : " + inputRight(code, inputs) + "   -   Almost inputs : " + inputAlmost(code, inputs) + "     |     ");
 
         for (char input : inputs)
             System.out.print("   " + input);
     }
 }
+

@@ -1,7 +1,9 @@
 package Mastermind;
 
 
-
+/** C'est le main :D
+ *
+ */
 public class Main
 {
     public static void main(String[] argv)
