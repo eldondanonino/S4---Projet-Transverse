@@ -3,6 +3,7 @@ package Mastermind;
 
 import static Mastermind.Affichage.consoleAfficher;
 import static Mastermind.Parametres.entreeInput;
+import static Mastermind.Parametres.inputRight;
 
 
 /** Classe contenant les informations d'une partie de Mastermind
@@ -40,16 +41,32 @@ public class Partie
         }
 
 
+        lancerPartie();
+    }
+
+
+    /** S'occupe de gérer le déroulement d'une partie (vérification, arrêt, affichage des résultats)
+     *
+     */
+    private void lancerPartie()
+    {
         // On demande à rentrer le code secret
         entreeCodeSecret();
 
 
+        boolean victoire = false;
         // On crée une boucle pour entrer les inputs afin de trouver la solution
         for(int index = 0; index < NOMBRE_LIGNES; index++)
         {
             entreeTentative(index);
             consoleAfficher(code, inputs);
+
+            victoire = inputRight(code, inputs[index]) == NOMBRE_INPUTS;
+            if (victoire)
+                break;
         }
+
+        afficherResultat(victoire);
     }
 
 
@@ -59,7 +76,7 @@ public class Partie
     private void entreeCodeSecret()
     {
         for( int i = 0; i <NOMBRE_INPUTS ; i++)
-            code[i] = entreeInput("      Entrez  le code secret :  char n° " + i + " : ");
+            code[i] = entreeInput("      Entrez  le code secret - char n° " + i + " : ");
     }
 
 
@@ -72,5 +89,18 @@ public class Partie
 
         for(int index = 0; index < NOMBRE_INPUTS; index++)
             inputs[ligne][index] = entreeInput("      Entrez  l'input n° " + index + " (fdp) : ");
+    }
+
+
+    /** Affiche les résultats en conséquences de victoire ou défaite
+     *
+     * @param victoire faut true si le code a été trouvé, false sinon
+     */
+    private void afficherResultat(boolean victoire)
+    {
+        if(victoire)
+                System.out.println("\n\n\n\nyou win - GG !! \n\n\n\n\n\n");
+        else
+            System.out.println("\n\n\n\nyou lose : Git Gud. \n\n\n\n\n\n");
     }
 }

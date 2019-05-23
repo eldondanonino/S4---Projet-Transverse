@@ -51,6 +51,8 @@ class Parametres
         return input;
     }
 
+
+
     /** Retourne le nombre d'inputs corrects ET à la bonne place
      *
      * @param code le code secret

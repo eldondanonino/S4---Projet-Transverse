@@ -8,6 +8,6 @@ public class Main
 {
     public static void main(String[] argv)
     {
-        Partie p = new Partie(10, 5);
+        Partie p = new Partie(2, 5);
     }
 }
