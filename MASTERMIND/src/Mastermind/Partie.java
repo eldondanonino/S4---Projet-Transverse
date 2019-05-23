@@ -142,8 +142,31 @@ public class Partie
      */
     private void entreeCodeSecret()
     {
-        for( int i = 0; i <NOMBRE_INPUTS ; i++)
-            code[i] = entreeInput("      Entrez  le code secret - char n° " + i + " : ", minInputValue, maxInputValue);
+        System.out.println("CODE SECRET \n\n");
+
+        for(int index = 0; index < NOMBRE_INPUTS; index++)
+        {
+            boolean condition;
+
+            do
+            {
+                condition = true;
+                code[index] = entreeInput("      Char n° " + index + " : ", minInputValue, maxInputValue);
+
+                if(difficulte != 1)
+                {
+                    for ( int i = 0; i < index; i++)
+                    {
+                        if (code[i]  == code[index])
+                        {
+                            condition = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            while(!condition);
+        }
     }
 
 
@@ -155,7 +178,28 @@ public class Partie
         System.out.println("LIGNE N° " + ligne + "\n\n");
 
         for(int index = 0; index < NOMBRE_INPUTS; index++)
-            inputs[ligne][index] = entreeInput("      Entrez  l'input n° " + index + " (fdp) : ", minInputValue, maxInputValue);
+        {
+            boolean condition;
+
+            do
+            {
+                condition = true;
+                inputs[ligne][index] = entreeInput("      Entrez  l'input n° " + index + " (fdp) : ", minInputValue, maxInputValue);
+
+                if(difficulte != 1)
+                {
+                    for ( int i = 0; i < index; i++)
+                    {
+                        if (inputs[ligne][i] == inputs[ligne][index])
+                        {
+                            condition = false;
+                            break;
+                         }
+                    }
+                }
+            }
+            while(!condition);
+        }
     }
 
 
