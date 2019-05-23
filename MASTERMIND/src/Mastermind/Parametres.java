@@ -11,9 +11,11 @@ class Parametres
     /** Vérifie l'input de l'utilisateur et contraint l'input à un caractère compris entre 'a' et 'z'
      *
      * @param message message à afficher
+     * @param min valeur minimale de l'input
+     * @param max valeur maximale de l'input
      * @return l'input vérifié et validé
      */
-    public static char entreeInput (String message)
+    public static char entreeInput (String message, char min, char max)
     {
         Scanner sc = new Scanner(System.in);
         char input;
@@ -22,7 +24,7 @@ class Parametres
             System.out.print(message);
             input = getInput();
         }
-        while('a' > input || input > 'z');
+        while(min > input || input > max);
 
         System.out.println();
         return input;

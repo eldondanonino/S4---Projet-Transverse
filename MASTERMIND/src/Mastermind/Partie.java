@@ -13,25 +13,85 @@ public class Partie
 {
     private int NOMBRE_LIGNES;
     private int NOMBRE_INPUTS;
+
     private char[][] inputs;
     private char[] code;
+
+    private static  final char MIN_DIFFICULTE = '1';
+    private static final char MAX_DIFFICULTE = '3';
+    private char difficulte;
+
+    private char minInputValue;
+    private char maxInputValue;
+
     private boolean victoire;
     private int tourFinal;
+
+    /**
+     * Réalisation du jeu
+     */
+    public Partie()
+    {
+        // On initialise les paramètres
+        difficulte = entreeInput("     Veuillez choisir la difficulté : ", MIN_DIFFICULTE, MAX_DIFFICULTE);
+
+        lancerPartie();
+    }
 
 
 
     /**
      * Réalisation du jeu
-     * @param NOMBRE_LIGNES nombre de lignes du tableau
-     * @param NOMBRE_INPUTS nombre de colonnes du tableau
+     * @param difficulte difficulté de la partie
      */
-
-    public Partie(int NOMBRE_LIGNES, int NOMBRE_INPUTS)
+    public Partie(char difficulte)
     {
         // On initialise les paramètres
-        this.NOMBRE_LIGNES = NOMBRE_LIGNES;
-        this.NOMBRE_INPUTS = NOMBRE_INPUTS;
+        this.difficulte = difficulte;
 
+        lancerPartie();
+    }
+
+
+    /** Prépare les paramètres selon la difficulté sélectionnée
+     *
+     */
+    private void setParametres()
+    {
+        switch(difficulte)
+        {
+            case '1':
+                NOMBRE_INPUTS = 3;
+                NOMBRE_LIGNES = 5;
+                minInputValue = '0';
+                maxInputValue = '1';
+                break;
+
+            case '2':
+                NOMBRE_INPUTS = 4;
+                NOMBRE_LIGNES = 10;
+                minInputValue = 'a';
+                maxInputValue = 'z';
+                break;
+
+            case '3':
+                NOMBRE_INPUTS = 6;
+                NOMBRE_LIGNES = 8;
+                minInputValue = 'a';
+                maxInputValue = 'z';
+                break;
+
+            default:
+                NOMBRE_INPUTS = 5;
+                NOMBRE_LIGNES = 10;
+                minInputValue = 'a';
+                maxInputValue = 'z';
+                break;
+        }
+
+
+        System.out.println("Vous avez choisi la difficulté : " + difficulte );
+        System.out.println("Veuillez entrer des valeurs comprises entre (inclusif) " + minInputValue + " et " + maxInputValue);
 
         // On initialise le code secret et les inputs utilisateurs
         code = new char[NOMBRE_INPUTS];
@@ -42,9 +102,6 @@ public class Partie
             for(int j = 0; j< NOMBRE_INPUTS; j++)
                 inputs[i][j] = '.';
         }
-
-
-        lancerPartie();
     }
 
 
@@ -53,24 +110,27 @@ public class Partie
      */
     private void lancerPartie()
     {
+        // On prépare les paramètres en conséquences (tailles tableau, min / max)
+        setParametres();
+
+
         // On demande à rentrer le code secret
         entreeCodeSecret();
 
 
         victoire = false;
-        tourFinal = 1;
+        tourFinal = 0;
 
         // On crée une boucle pour entrer les inputs afin de trouver la solution
         for(int index = 0; index < NOMBRE_LIGNES; index++)
         {
+            tourFinal++;
             entreeTentative(index);
             consoleAfficher(code, inputs);
 
             victoire = inputRight(code, inputs[index]) == NOMBRE_INPUTS;
             if (victoire)
                 break;
-            else
-                tourFinal++;
         }
 
         afficherResultat();
@@ -83,7 +143,7 @@ public class Partie
     private void entreeCodeSecret()
     {
         for( int i = 0; i <NOMBRE_INPUTS ; i++)
-            code[i] = entreeInput("      Entrez  le code secret - char n° " + i + " : ");
+            code[i] = entreeInput("      Entrez  le code secret - char n° " + i + " : ", minInputValue, maxInputValue);
     }
 
 
@@ -95,7 +155,7 @@ public class Partie
         System.out.println("LIGNE N° " + ligne + "\n\n");
 
         for(int index = 0; index < NOMBRE_INPUTS; index++)
-            inputs[ligne][index] = entreeInput("      Entrez  l'input n° " + index + " (fdp) : ");
+            inputs[ligne][index] = entreeInput("      Entrez  l'input n° " + index + " (fdp) : ", minInputValue, maxInputValue);
     }
 
 
