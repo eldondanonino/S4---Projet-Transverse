@@ -13,8 +13,11 @@ public class Partie
 {
     private int NOMBRE_LIGNES;
     private int NOMBRE_INPUTS;
-    char[][] inputs;
-    char[] code;
+    private char[][] inputs;
+    private char[] code;
+    private boolean victoire;
+    private int tourFinal;
+
 
 
     /**
@@ -54,7 +57,9 @@ public class Partie
         entreeCodeSecret();
 
 
-        boolean victoire = false;
+        victoire = false;
+        tourFinal = 1;
+
         // On crée une boucle pour entrer les inputs afin de trouver la solution
         for(int index = 0; index < NOMBRE_LIGNES; index++)
         {
@@ -64,9 +69,11 @@ public class Partie
             victoire = inputRight(code, inputs[index]) == NOMBRE_INPUTS;
             if (victoire)
                 break;
+            else
+                tourFinal++;
         }
 
-        afficherResultat(victoire);
+        afficherResultat();
     }
 
 
@@ -94,13 +101,13 @@ public class Partie
 
     /** Affiche les résultats en conséquences de victoire ou défaite
      *
-     * @param victoire faut true si le code a été trouvé, false sinon
      */
-    private void afficherResultat(boolean victoire)
+    private void afficherResultat()
     {
+        System.out.println("\n\n\n\n        Dernier tour joué : n° " + tourFinal + "\n\n\n");
         if(victoire)
-                System.out.println("\n\n\n\nyou win - GG !! \n\n\n\n\n\n");
+                System.out.println("    you win - GG !! \n\n\n\n\n\n");
         else
-            System.out.println("\n\n\n\nyou lose : Git Gud. \n\n\n\n\n\n");
+            System.out.println("you lose : Git Gud. \n\n\n\n\n\n");
     }
 }
