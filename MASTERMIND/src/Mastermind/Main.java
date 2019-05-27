@@ -2,7 +2,7 @@ package Mastermind;
 
 
 /** C'est le main :D
- *
+ *	@author Daniil Rosso
  */
 public class Main
 {
