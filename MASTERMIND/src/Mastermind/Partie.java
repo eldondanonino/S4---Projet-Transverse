@@ -63,8 +63,8 @@ public class Partie
             case '1':
                 NOMBRE_INPUTS = 3;
                 NOMBRE_LIGNES = 5;
-                minInputValue = '0';
-                maxInputValue = '1';
+                minInputValue = '1';
+                maxInputValue = '3';
                 break;
 
             case '2':
@@ -184,7 +184,7 @@ public class Partie
             do
             {
                 condition = true;
-                inputs[ligne][index] = entreeInput("      Entrez  l'input n° " + index + " (fdp) : ", minInputValue, maxInputValue);
+                inputs[ligne][index] = entreeInput("      Entrez  l'input n° " + index + ": ", minInputValue, maxInputValue);
 
                 if(difficulte != 1)
                 {
